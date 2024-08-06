@@ -49,10 +49,15 @@ export default function Notes_Store({children}){
         addProject((val)=>{
             return{
                 ...val,
-                curProject:val.projects.filter((item)=>item.id == id)
+                curProject:val.projects.filter((item)=>item.id == id),
+                curProjectIndex:val.projects.find((val, index)=>{
+                    if(val.id == id){
+                        return index;
+                    }
+                })
             }
         })
-        console.log(projects.curProject)
+       
         setReadingNote(true)
     }
     function editNote(idd, ntext, ntitle){
