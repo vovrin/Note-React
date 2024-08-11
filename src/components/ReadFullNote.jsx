@@ -1,20 +1,18 @@
-import { useContext, useState } from "react"
+import { useContext, useRef, useMemo } from "react"
 import { manageNotes } from "../store/notes-store"
 export default function ReadFullNote(){
-    const {curProject, isReadingNote, setReadingNote, porjects} = useContext(manageNotes)
-    const [notEditing, setEditing] = useState({
-        title:true,
-        text:true
-    })  
-    function startTextEdt(){
-        setEditing(()=>{
-            return{
-                title:true,
-                text:true
-            }
-        })
-        console.log("no")
+    const {curProject, isReadingNote, setReadingNote, porjects} = useContext(manageNotes);
+    const text = useRef();
+    const title = useRef();
+    useMemo(()=>{console.log(text.current.value)},[text.current.value])
+    
+    function checkChanges(){
+        if (text != curProject[0].text || title != curProject[0].title){
+
+        }
     }
+
+   
     const tex = `<- назад`
     return(
         <>
@@ -25,8 +23,10 @@ export default function ReadFullNote(){
                             <button onClick={()=>setReadingNote(false)} className="p-2  hover:bg-slate-900">{tex}</button>
                         </nav>
                         <div className="w-full text-white p-3 flex flex-col gap-3">
-                            <textarea disabled = {notEditing.title} className="font-bold text-2xl bg-transparent resize-none">{curProject[0].title}</textarea>
-                            <textarea onClick={()=>{console.log("yes")}} disabled = {notEditing.text} className="font-normal text-lg bg-transparent resize-none">{curProject[0].text}</textarea>
+                            <textarea ref = {title} className="font-bold text-2xl bg-transparent resize-none outline-none">{curProject[0].title}</textarea>
+                            
+                            <textarea ref = {text} onChange = {checkChanges} className="font-normal text-lg bg-transparent resize-none outline-none">{curProject[0].text}</textarea>
+                           
                         </div>
         
                     </div>
