@@ -1,4 +1,4 @@
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import { manageNotes } from "../store/notes-store"
 export default function ReadFullNote(){
     const {curProject, isReadingNote, setReadingNote} = useContext(manageNotes);
